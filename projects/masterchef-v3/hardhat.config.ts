@@ -57,7 +57,19 @@ const config = {
     // mainnet: bscMainnet,
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: {
+      "ecreditsTestnet": '0',
+    },
+    customChains: [
+      {
+          network: "ecreditsTestnet",
+          chainId: 63001,
+          urls: {
+              apiURL: "https://explorer.tst.ecredits.com/api",
+              browserURL: "https://rpc.tst.ecredits.com",
+          },
+      }
+    ]
   },
   solidity: {
     compilers: [

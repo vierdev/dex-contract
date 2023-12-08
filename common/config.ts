@@ -44,6 +44,9 @@ export const configs = {
     cake: '0x0000000000000000000000000000000000000000',
     smartRouterHelper: '0xdAecee3C08e953Bd5f89A5Cc90ac560413d709E3',
   },
+  eCredits: {
+    WNATIVE: "0x4e9f20ed63fa2421fD18857A0c3a41aD138CD593"
+  },
   ecreditsTestnet: {
     WNATIVE: "0x4AC7E48fe2F31122Cd49B801988afA69E56DD439",
     nativeCurrencyLabel: "ECS",

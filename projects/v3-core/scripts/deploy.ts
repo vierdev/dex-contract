@@ -1,4 +1,5 @@
 import { tryVerify } from '@pancakeswap/common/verify'
+import { verifyContract } from '@pancakeswap/common/verify'
 import { ContractFactory } from 'ethers'
 import { ethers, network } from 'hardhat'
 import fs from 'fs'
@@ -62,6 +63,21 @@ async function main() {
   }
 
   fs.writeFileSync(`./deployments/${networkName}.json`, JSON.stringify(contracts, null, 2))
+  console.log("verify");
+  
+    try {
+      // @ts-ignore
+      await run("verify:verify", {
+          address: pancakeV3PoolDeployer_address,
+          constructorArguments: [],
+      });
+    } catch (e) {
+        if (e.message.toLowerCase().includes("already verified")) {
+            console.log("\t Already verified!");
+        } else {
+            console.log(e);
+        }
+    }
 }
 
 main()

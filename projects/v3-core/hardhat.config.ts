@@ -74,6 +74,12 @@ const eth: NetworkUserConfig = {
   accounts: [process.env.KEY_ETH!],
 }
 
+const eCredits: NetworkUserConfig = {
+  url: "https://rpc.ecredits.com",
+  gasPrice: 21000000000,
+  accounts: [process.env.KEY_ECREDITS_MAIN!]
+}
+
 const ecreditsTestnet: NetworkUserConfig = {
   url: "https://rpc.tst.ecredits.com",
   gasPrice: 21000000000,
@@ -89,12 +95,37 @@ export default {
     ...(process.env.KEY_MAINNET && { bscMainnet }),
     ...(process.env.KEY_GOERLI && { goerli }),
     ...(process.env.KEY_ETH && { eth }),
+    ...(process.env.KEY_ECREDITS_MAIN && {eCredits}),
     ...(process.env.KEY_ECREDITS_TEST && {ecreditsTestnet})
     // mainnet: bscMainnet,
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: {
+      "ecreditsTestnet": '0',
+      "eCredits": '0'
+    },
+    customChains: [
+      {
+          network: "ecreditsTestnet",
+          chainId: 63001,
+          urls: {
+              apiURL: "https://explorer.tst.ecredits.com/api",
+              browserURL: "https://rpc.tst.ecredits.com",
+          },
+      },
+      {
+        network: "eCredits",
+        chainId: 63000,
+        urls: {
+            apiURL: "https://explorer.ecredits.com/api",
+            browserURL: "https://rpc.ecredits.com",
+        },
+    }
+    ]
   },
+  namedAccounts: {
+    deployer: 0,
+},
   solidity: {
     compilers: [DEFAULT_COMPILER_SETTINGS],
     overrides: {
@@ -110,6 +141,10 @@ export default {
       verbose: true,
     },
   },
+  spdxLicenseIdentifier: {
+    overwrite: true,
+    runOnCompile: true,
+},
   docgen: {
     pages: 'files',
   },

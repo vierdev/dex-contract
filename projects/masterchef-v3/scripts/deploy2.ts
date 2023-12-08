@@ -14,31 +14,31 @@ async function main() {
   await run("compile");
   console.log("Compiled contracts...");
 
-  const config = configs[networkName as keyof typeof configs];
-  if (!config) {
-    throw new Error(`No config found for network ${networkName}`);
-  }
+  // const config = configs[networkName as keyof typeof configs];
+  // if (!config) {
+  //   throw new Error(`No config found for network ${networkName}`);
+  // }
 
-  const v3PeripheryDeployedContracts = await import(`@pancakeswap/v3-periphery/deployments/${networkName}.json`);
-  const positionManager_address = v3PeripheryDeployedContracts.NonfungiblePositionManager;
+  // const v3PeripheryDeployedContracts = await import(`@pancakeswap/v3-periphery/deployments/${networkName}.json`);
+  // const positionManager_address = v3PeripheryDeployedContracts.NonfungiblePositionManager;
 
-  const MasterChefV3 = await ethers.getContractFactory("MasterChefV3");
-  const masterChefV3 = await MasterChefV3.deploy(config.cake, positionManager_address, config.WNATIVE);
+  // const MasterChefV3 = await ethers.getContractFactory("MasterChefV3");
+  // const masterChefV3 = await MasterChefV3.deploy(config.cake, positionManager_address, config.WNATIVE);
 
-  console.log("masterChefV3 deployed to:", masterChefV3.address);
-  // await tryVerify(masterChefV3, [config.cake, positionManager_address]);
+  // console.log("masterChefV3 deployed to:", masterChefV3.address);
+  // // await tryVerify(masterChefV3, [config.cake, positionManager_address]);
 
-  // Write the address to a file.
-  writeFileSync(
-    `./deployments/${networkName}.json`,
-    JSON.stringify(
-      {
-        MasterChefV3: masterChefV3.address,
-      },
-      null,
-      2
-    )
-  );
+  // // Write the address to a file.
+  // writeFileSync(
+  //   `./deployments/${networkName}.json`,
+  //   JSON.stringify(
+  //     {
+  //       MasterChefV3: masterChefV3.address,
+  //     },
+  //     null,
+  //     2
+  //   )
+  // );
 }
 
 main()
