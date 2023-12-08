@@ -68,10 +68,10 @@ async function main() {
   const pancakeV3PoolDeployer_address = "0x9d17237DB89E49a451A7A7dc9A969A69a16fBC60"
   const pancakeV3Factory_address = "0xdC883c9171f27808Cff81D58B6b5f677aB4bCa14"
 
-  const wnative_address = "0x4e9f20ed63fa2421fD18857A0c3a41aD138CD593"
+  const wnative_testnet_address = "0x69792DA8c049d43847A4C4D2a78b99070CE5821f"
 
   const SwapRouter = new ContractFactory(artifacts.SwapRouter.abi, artifacts.SwapRouter.bytecode, owner)
-  const swapRouter = await SwapRouter.deploy(pancakeV3PoolDeployer_address, pancakeV3Factory_address, wnative_address)
+  const swapRouter = await SwapRouter.deploy(pancakeV3PoolDeployer_address, pancakeV3Factory_address, wnative_testnet_address)
 
   // await tryVerify(swapRouter, [pancakeV3PoolDeployer_address, pancakeV3Factory_address, config.WNATIVE])
   console.log('swapRouter', swapRouter.address)
@@ -147,7 +147,7 @@ async function main() {
   const nonfungiblePositionManager = await NonfungiblePositionManager.deploy(
     pancakeV3PoolDeployer_address,
     pancakeV3Factory_address,
-    wnative_address,
+    wnative_testnet_address,
     nonfungibleTokenPositionDescriptor.address
   )
 
@@ -165,7 +165,7 @@ async function main() {
   const v3Migrator = await V3Migrator.deploy(
     pancakeV3PoolDeployer_address,
     pancakeV3Factory_address,
-    wnative_address,
+    wnative_testnet_address,
     nonfungiblePositionManager.address
   )
   console.log('V3Migrator', v3Migrator.address)
@@ -184,7 +184,7 @@ async function main() {
   // await tryVerify(tickLens)
 
   const QuoterV2 = new ContractFactory(artifacts.QuoterV2.abi, artifacts.QuoterV2.bytecode, owner)
-  const quoterV2 = await QuoterV2.deploy(pancakeV3PoolDeployer_address, pancakeV3Factory_address, wnative_address)
+  const quoterV2 = await QuoterV2.deploy(pancakeV3PoolDeployer_address, pancakeV3Factory_address, wnative_testnet_address)
   console.log('QuoterV2', quoterV2.address)
 
   // await tryVerify(quoterV2, [pancakeV3PoolDeployer_address, pancakeV3Factory_address, config.WNATIVE])
@@ -198,7 +198,7 @@ async function main() {
     // NFTDescriptorEx: nftDescriptorEx.address,
     NonfungibleTokenPositionDescriptor: nonfungibleTokenPositionDescriptor.address,
     NonfungiblePositionManager: nonfungiblePositionManager.address,
-    Wnative: wnative_address
+    Wnative: wnative_testnet_address
   }
 
   fs.writeFileSync(`./deployments/${networkName}.json`, JSON.stringify(contracts, null, 2))
